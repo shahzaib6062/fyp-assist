@@ -1,12 +1,11 @@
 import '@/styles/globals.css';
-import { AuthUserProvider } from '../../firebase/auth.jsx';
+import { AuthUserProvider } from '../../firebase/auth';
+// import { AuthUserProvider } from '@/firebase/auth.jsx';
 
 export default function App({ Component, pageProps }) {
   return (
-    <>
-      <AuthUserProvider>
-        <Component {...pageProps} />
-      </AuthUserProvider>
-    </>
+    <AuthUserProvider>
+      <Component {...pageProps} />
+    </AuthUserProvider>
   );
 }
