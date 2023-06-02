@@ -10,7 +10,7 @@ import Link from 'next/link';
 import AuthWrapper from '../../compoents/AuthWrapper';
 import ResponsiveAppBar from '../../compoents/Navbar';
 
-export default function Supervisor() {
+export default function Student() {
   const { authUser, isLoading, setAuthUser, currentUser } = useAuth();
   const [groups, setGroupArray] = useState([]);
 
@@ -18,14 +18,9 @@ export default function Supervisor() {
     const fetchData = async () => {
       const q = query(
         collection(db, 'groups'),
-        where('supervisor', '==', authUser?.uid || '')
+        where('student', '==', authUser?.uid || '')
       );
-
       const querySnapshot = await getDocs(q);
-      // querySnapshot.forEach((doc) => {
-      //   console.log(doc.id, ' => ', doc.data());
-      // });
-
       console.log({ s: querySnapshot.docs });
       const groups = querySnapshot.docs.map((d) => ({
         id: d.id,
@@ -39,10 +34,8 @@ export default function Supervisor() {
   console.log({ groups });
   console.log('check current user', authUser, currentUser);
   return (
-    <AuthWrapper authRoles={['supervisor']}>
-      <ResponsiveAppBar
-        navLinks={[{ label: 'Add Group', href: '/newGroup' }]}
-      ></ResponsiveAppBar>
+    <AuthWrapper authRoles={['student', 'supervisor']}>
+      <ResponsiveAppBar navLinks={[]}></ResponsiveAppBar>
       <Stack m={5} direction="row" alignItems="center" spacing={2}>
         {groups.map((g, key) => {
           console.log({ g });

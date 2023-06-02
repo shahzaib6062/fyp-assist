@@ -76,11 +76,14 @@ export const AuthUserProvider = ({ children }) => {
     console.log('check local auth');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [auth.setCurrentUser]);
+
   useEffect(() => {
-    if (!auth.isLoading && !auth.authUser) {
+    if (!auth.isLoading && !auth.authUser && !router.pathname === '/login') {
+      console.log('shahzaib ko chandd');
       router.replace('/login');
     }
   }, [auth.authUser, auth.isLoading, router]);
+
   return (
     <AuthUserContext.Provider value={{ ...auth }}>
       {children}

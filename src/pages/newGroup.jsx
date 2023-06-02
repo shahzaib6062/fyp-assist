@@ -16,6 +16,9 @@ import { db } from '../../firebase/firebase';
 import { useAuth } from '../../firebase/auth';
 import { addDoc } from 'firebase/firestore';
 import { collection, query, where, getDocs, doc } from 'firebase/firestore';
+import AuthWrapper from '../../compoents/AuthWrapper';
+import ResponsiveAppBar from '../../compoents/Navbar';
+
 function Copyright(props) {
   return (
     <Typography
@@ -74,8 +77,6 @@ export default function NewGroup() {
       title: data.get('title'),
       description: data.get('description'),
       students: [
-        // studentArray.find((s) => s.agNumber === value1).uid,
-        // studentArray.find((s) => s.agNumber === value2).uid,
         doc(db, 'users', student1Doc.id), // Add reference to student document
         doc(db, 'users', student2Doc.id), // Add reference to student document
       ],
@@ -96,101 +97,106 @@ export default function NewGroup() {
   console.log({ options });
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Register New FYP Group
-          </Typography>
+    <AuthWrapper authRoles={['supervisor']}>
+      <ResponsiveAppBar
+        navLinks={[{ label: 'Groups', href: '/supervisor' }]}
+      ></ResponsiveAppBar>
+      <ThemeProvider theme={theme}>
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
           <Box
-            component="form"
-            noValidate
-            onSubmit={handleSubmit}
-            sx={{ mt: 3 }}
+            sx={{
+              marginTop: 8,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
           >
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  autoComplete="given-title"
-                  name="title"
-                  required
-                  fullWidth
-                  id="title"
-                  label="Group Title"
-                  autoFocus
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="description"
-                  label="Group Description"
-                  name="description"
-                  autoComplete="description"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Autocomplete
-                  value={value1}
-                  onChange={(event, newValue1) => {
-                    setValue1(newValue1);
-                  }}
-                  inputValue={inputValue1}
-                  onInputChange={(event, newInputValue1) => {
-                    setInputValue1(newInputValue1);
-                  }}
-                  id="student1"
-                  options={options}
-                  renderInput={(params) => (
-                    <TextField {...params} label="student1" />
-                  )}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Autocomplete
-                  value={value2}
-                  onChange={(event, newValue2) => {
-                    setValue2(newValue2);
-                  }}
-                  inputValue={inputValue2}
-                  onInputChange={(event, newInputValue2) => {
-                    setInputValue2(newInputValue2);
-                  }}
-                  id="student2"
-                  options={options}
-                  renderInput={(params) => (
-                    <TextField {...params} label="student2" />
-                  )}
-                />
-              </Grid>
-            </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Register New FYP Group
+            </Typography>
+            <Box
+              component="form"
+              noValidate
+              onSubmit={handleSubmit}
+              sx={{ mt: 3 }}
             >
-              Add New FYP Group
-            </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item></Grid>
-            </Grid>
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <TextField
+                    autoComplete="given-title"
+                    name="title"
+                    required
+                    fullWidth
+                    id="title"
+                    label="Group Title"
+                    autoFocus
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="description"
+                    label="Group Description"
+                    name="description"
+                    autoComplete="description"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Autocomplete
+                    value={value1}
+                    onChange={(event, newValue1) => {
+                      setValue1(newValue1);
+                    }}
+                    inputValue={inputValue1}
+                    onInputChange={(event, newInputValue1) => {
+                      setInputValue1(newInputValue1);
+                    }}
+                    id="student1"
+                    options={options}
+                    renderInput={(params) => (
+                      <TextField {...params} label="student1" />
+                    )}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Autocomplete
+                    value={value2}
+                    onChange={(event, newValue2) => {
+                      setValue2(newValue2);
+                    }}
+                    inputValue={inputValue2}
+                    onInputChange={(event, newInputValue2) => {
+                      setInputValue2(newInputValue2);
+                    }}
+                    id="student2"
+                    options={options}
+                    renderInput={(params) => (
+                      <TextField {...params} label="student2" />
+                    )}
+                  />
+                </Grid>
+              </Grid>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Add New FYP Group
+              </Button>
+              <Grid container justifyContent="flex-end">
+                <Grid item></Grid>
+              </Grid>
+            </Box>
           </Box>
-        </Box>
-        <Copyright sx={{ mt: 5 }} />
-      </Container>
-    </ThemeProvider>
+          <Copyright sx={{ mt: 5 }} />
+        </Container>
+      </ThemeProvider>
+    </AuthWrapper>
   );
 }

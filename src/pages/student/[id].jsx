@@ -3,26 +3,19 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { db } from '../../../firebase/firebase';
 import { getDoc, doc } from 'firebase/firestore';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import ResponsiveAppBar from '../../../compoents/NavbarAdmin';
+import ResponsiveAppBar from '../../../compoents/Navbar';
 import AuthWrapper from '../../../compoents/AuthWrapper';
+import GruopSubmission from '../../../compoents/GroupSubmission';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import { Grid, Stack } from '@mui/material';
 
 export default function FypGroup() {
   const [group, setGroup] = useState({});
-  const [open, setOpen] = useState(false);
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
   const { id } = useRouter().query;
   console.log(id);
   useEffect(() => {
@@ -37,33 +30,76 @@ export default function FypGroup() {
     }
   }, [id]);
   return (
-    <AuthWrapper authRoles={['admin']}>
-      <ResponsiveAppBar></ResponsiveAppBar>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Open form dialog
-      </Button>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Subscribe</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            To subscribe to this website, please enter your email address here.
-            We will send updates occasionally.
-          </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Email Address"
-            type="email"
-            fullWidth
-            variant="standard"
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Subscribe</Button>
-        </DialogActions>
-      </Dialog>
+    <AuthWrapper authRoles={['admin', 'supervisor', 'student']}>
+      <ResponsiveAppBar navLinks={[]}></ResponsiveAppBar>
+      <Grid container spacing={2} columns={16}>
+        <Grid item xs={8}>
+          1
+        </Grid>
+        <Grid item xs={8}>
+          2
+        </Grid>
+      </Grid>
+      <Stack
+        m={10}
+        spacing={{ xs: 1, sm: 2 }}
+        justifyContent="space-around"
+        direction="row"
+        useFlexGap
+        flexWrap="wrap"
+      >
+        <Card sx={{ maxWidth: 345 }}>
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              First Report
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Initial first report submitted, outlining the projects objectives,
+              research methodology, and proposed approach, setting the
+              foundation for further exploration and development
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Button size="small">
+              <GruopSubmission supervisorId={group.supervisor} groupId={id} />
+            </Button>
+          </CardActions>
+        </Card>
+        <Card sx={{ maxWidth: 345 }}>
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              Last Report
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Final year project report submitted, showcasing innovative
+              research, meticulous analysis, and practical implementation,
+              culminating in a successful solution.
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Button size="small">
+              <GruopSubmission supervisorId={group.supervisor} groupId={id} />
+            </Button>
+          </CardActions>
+        </Card>
+        <Card sx={{ maxWidth: 345 }}>
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              Code Submit
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Final code submission for the final year project, delivering a
+              robust and functional software solution, incorporating advanced
+              algorithms and achieving project objectives effectively.
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Button size="small">
+              <GruopSubmission supervisorId={group.supervisor} groupId={id} />
+            </Button>
+          </CardActions>
+        </Card>
+      </Stack>
     </AuthWrapper>
   );
 }

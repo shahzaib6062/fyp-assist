@@ -12,11 +12,14 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import { useRouter } from 'next/router';
+import { useAuth } from '../firebase/auth';
+import Link from 'next/link';
 
-const pages = ['Create New Group', 'View Group'];
-const settings = ['Group', 'Logout'];
-
-function NavbarSupervisor() {
+function ResponsiveAppBar(props) {
+  const { navLinks } = props;
+  const { signOut } = useAuth();
+  const router = useRouter();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -34,12 +37,17 @@ function NavbarSupervisor() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  const logOut = () => {
+    signOut(() => {
+      router.replace('/login');
+    });
+  };
 
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
           <Typography
             variant="h6"
             noWrap
@@ -83,13 +91,18 @@ function NavbarSupervisor() {
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' },
-              }}
+              sx={
+                {
+                  // display: { xs: 'block', md: 'none' },
+                }
+              }
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+              {navLinks.map((navlink) => (
+                <MenuItem key={navlink.label} onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">
+                    {' '}
+                    <Link href={navlink.href}>{navlink.label}</Link>
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -114,14 +127,16 @@ function NavbarSupervisor() {
             FYP Assist
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page}
-              </Button>
+            {navLinks.map((navlink) => (
+              <Link key={navlink.label} href={navlink.href}>
+                <Button
+                  key={navlink.label}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: 'white', display: 'block' }}
+                >
+                  {navlink.label}
+                </Button>
+              </Link>
             ))}
           </Box>
 
@@ -147,11 +162,11 @@ function NavbarSupervisor() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem onClick={handleCloseUserMenu}>
+                <Typography textAlign="center" onClick={logOut}>
+                  Logout
+                </Typography>
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>
@@ -159,4 +174,4 @@ function NavbarSupervisor() {
     </AppBar>
   );
 }
-export default NavbarSupervisor;
+export default ResponsiveAppBar;

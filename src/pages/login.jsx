@@ -9,7 +9,6 @@ import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-// import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { auth } from '../../firebase/firebase';
@@ -31,6 +30,7 @@ import { useAuth } from '../../firebase/auth';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import loginBanner from '../../asserts/imgs/loginBanner.jpg';
+import ResponsiveAppBar from '../../compoents/Navbar';
 function Copyright(props) {
   return (
     <Typography
@@ -55,8 +55,16 @@ export default function SignInSide() {
   const { authUser, isLoading, setCurrentUser, currentUser } = useAuth();
   const router = useRouter();
 
-  if (!isLoading && authUser) {
-    router.push('/admin');
+  // console.log({ currentUser });
+
+  if (!isLoading && currentUser) {
+    if (currentUser.role === 'admin') {
+      router.push('/admin');
+    } else if (currentUser.role === 'supervisor') {
+      router.push('/admin');
+    } else if (currentUser.role === 'student') {
+      router.push('/student');
+    }
   }
 
   const handleSubmit = async (event) => {
@@ -86,6 +94,8 @@ export default function SignInSide() {
     //   console.error(error);
     // }
   };
+
+  // console.log('sign In rendered');
 
   return (
     <ThemeProvider theme={theme}>
