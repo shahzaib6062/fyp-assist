@@ -40,6 +40,8 @@ function Copyright(props) {
 const theme = createTheme();
 export default function NewGroup() {
   const [studentArray, setStudentArray] = useState([]);
+
+  console.log({ studentArray });
   useEffect(() => {
     const fetchData = async () => {
       const q = query(collection(db, 'users'), where('role', '==', 'student'));
@@ -77,8 +79,8 @@ export default function NewGroup() {
       title: data.get('title'),
       description: data.get('description'),
       students: [
-        doc(db, 'users', student1Doc.id), // Add reference to student document
-        doc(db, 'users', student2Doc.id), // Add reference to student document
+        doc(db, 'users', student1Doc.data().uid), // Add reference to student document
+        doc(db, 'users', student2Doc.data().uid), // Add reference to student document
       ],
       supervisor: authUser.uid,
     });

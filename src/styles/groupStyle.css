@@ -1,0 +1,213 @@
+#container {
+  width: 80%;
+  display: grid;
+  /* grid-template-rows: repeat(2, 1fr) 1.5fr; */
+  grid-template-columns: 3fr 1.2fr;
+  grid-gap: 1rem;
+  margin: auto;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.box_coment {
+  width: 370px;
+}
+.anchor_style {
+  text-decoration: none;
+  color: blue;
+}
+/* pw heading section */
+#pw_div {
+  display: inline-block;
+  padding: 8px;
+}
+.dialog {
+  padding: auto;
+}
+/* your work section */
+#work_div {
+  grid-row: 1/3;
+  grid-column: 2/3;
+  padding: 30px 20px;
+  box-shadow: rgba(214, 214, 214, 0.5) -1px -1px 7px 1px inset;
+  border-radius: 10px;
+}
+.btn {
+  /* width: 260px;
+  height: 60px; */
+  margin: 8px 10px;
+  padding: 5px 10px;
+  border: 1px solid grey;
+  border-radius: 10px;
+  background-color: white;
+}
+.flex-heading {
+  display: flex;
+  flex-direction: row;
+}
+.flex-component {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.justify-btw {
+  justify-content: space-between;
+}
+.fileLogClass {
+  /* margin-top: -120px; */
+  object-fit: contain;
+}
+/* button section */
+#outer_button_div {
+  border: 1px solid grey;
+  border-radius: 10px;
+  margin: 0px 20px;
+  width: 340px;
+  height: 70px;
+}
+#btn1 {
+  /* width: 300px;
+  height: 50px; */
+  margin: 9px 20px;
+  padding: 5px;
+  border: 1px solid grey;
+  border-radius: 10px;
+  background-color: white;
+}
+
+/* comment box section */
+.img {
+  vertical-align: middle;
+}
+#comment_box {
+  border: 1px solid grey;
+  border-radius: 10px;
+  margin: 12px 0px;
+  padding: 5px 7px;
+  font-size: 15px;
+}
+.comment_text {
+  border: 1px solid grey;
+  border-radius: 10px;
+  font-size: 15px;
+  padding: 20px;
+  height: max-content;
+}
+.submit {
+  position: relative;
+  background-color: black;
+  color: wheat;
+  padding: 10px;
+  text-align: center;
+  width: 200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.comment {
+  padding: 5px 7px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* button section */
+#outer_button2 {
+  border-radius: 10px;
+  width: max-content;
+}
+
+p {
+  display: inline;
+  padding: 5px;
+}
+#textarea {
+  width: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 768px) {
+  /* CSS rules for screens smaller than 768px */
+  #container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #outer_button_div {
+    margin: 0px auto;
+    width: 300px;
+    text-align: center;
+  }
+  #btn1 {
+    width: 260px;
+  }
+
+  .btn {
+    width: 200px;
+    text-align: center;
+  }
+
+  #work_div {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+  #outer_button2 {
+    text-align: center;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #textarea {
+    width: 200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  /* CSS rules for screens between 768px and 1024px */
+  body {
+    overflow-x: hidden;
+  }
+  #container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #outer_button_div {
+    margin: 0px auto;
+    width: 300px;
+    text-align: center;
+  }
+  #btn1 {
+    width: 260px;
+  }
+
+  .btn {
+    width: 200px;
+    text-align: center;
+  }
+
+  #work_div {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  #outer_button2 {
+    text-align: center;
+  }
+  #textarea {
+    width: max-content;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

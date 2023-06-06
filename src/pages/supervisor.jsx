@@ -3,7 +3,14 @@ import CardGroup from '../../compoents/CardGroup';
 import Stack from '@mui/joy/Stack';
 import { db } from '../../firebase/firebase';
 import { addDoc } from 'firebase/firestore';
-import { collection, query, where, getDocs, doc } from 'firebase/firestore';
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  doc,
+  deleteDoc,
+} from 'firebase/firestore';
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../firebase/auth';
 import Link from 'next/link';
@@ -47,7 +54,7 @@ export default function Supervisor() {
         {groups.map((g, key) => {
           console.log({ g });
           return (
-            <Link key={key} href={`/student/${g.id}`}>
+            <Link key={key} href={`/supervisor/${g.id}`}>
               <CardGroup
                 key={key}
                 imgLetter="S"

@@ -8,7 +8,7 @@ import Link from 'next/link';
 
 export default function AddUserCard(props) {
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ minWidth: 345 }}>
       <CardActionArea>
         <Link href={props.href}>
           <CardMedia

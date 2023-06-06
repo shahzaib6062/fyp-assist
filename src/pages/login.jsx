@@ -61,7 +61,7 @@ export default function SignInSide() {
     if (currentUser.role === 'admin') {
       router.push('/admin');
     } else if (currentUser.role === 'supervisor') {
-      router.push('/admin');
+      router.push('/supervisor');
     } else if (currentUser.role === 'student') {
       router.push('/student');
     }

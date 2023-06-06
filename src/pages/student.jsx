@@ -9,17 +9,20 @@ import { useAuth } from '../../firebase/auth';
 import Link from 'next/link';
 import AuthWrapper from '../../compoents/AuthWrapper';
 import ResponsiveAppBar from '../../compoents/Navbar';
-
+// import '../styles/groupStyle.css';
 export default function Student() {
   const { authUser, isLoading, setAuthUser, currentUser } = useAuth();
   const [groups, setGroupArray] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
+      const stuRef = doc(db, 'users', authUser?.uid);
       const q = query(
         collection(db, 'groups'),
-        where('student', '==', authUser?.uid || '')
+        where('students', 'array-contains', stuRef)
       );
+
+      console.log(`/users/${authUser?.uid}`);
       const querySnapshot = await getDocs(q);
       console.log({ s: querySnapshot.docs });
       const groups = querySnapshot.docs.map((d) => ({
@@ -31,7 +34,7 @@ export default function Student() {
     fetchData();
   }, [authUser]);
   // console.log({ studentArray });
-  console.log({ groups });
+  console.log('groups', { groups });
   console.log('check current user', authUser, currentUser);
   return (
     <AuthWrapper authRoles={['student', 'supervisor']}>

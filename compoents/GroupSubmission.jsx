@@ -36,13 +36,14 @@ export default function GruopSubmission(props) {
       uidSubmitter: currentUser.uid,
       uidGroup: props.groupId,
       link: submission,
+      title: props.title,
     });
     console.log(docRef);
   };
 
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
+      <Button className="dialog" variant="outlined" onClick={handleClickOpen}>
         Open submission box
       </Button>
       <Dialog open={open} onClose={handleClose}>
@@ -59,14 +60,17 @@ export default function GruopSubmission(props) {
             label="Paste the link"
             type="string"
             fullWidth
+            required
             variant="standard"
             value={submission}
             onChange={handleSubmissionChange}
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleSubmission}>Submit</Button>
+          <div>
+            <Button onClick={handleClose}>Cancel</Button>
+            <Button onClick={handleSubmission}>Submit</Button>
+          </div>
         </DialogActions>
       </Dialog>
     </div>

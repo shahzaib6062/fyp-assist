@@ -13,6 +13,7 @@ export default function Admin() {
         navLinks={[
           { label: 'New Supervisor', href: '/registerSupervisor' },
           { label: 'New Student', href: '/registerStudent' },
+          { label: 'Users', href: '/users' },
         ]}
       ></ResponsiveAppBar>
       <Stack direction="row" justifyContent="space-around" m={5} spacing={2}>
