@@ -5,9 +5,14 @@ import AddUserCard from '../../compoents/AddUserCard';
 import SupervisorBanner from '../../asserts/imgs/supervisorBanner.jpg';
 import StudentBanner from '../../asserts/imgs/studentBanner.jpg';
 import AuthWrapper from '../../compoents/AuthWrapper';
-
+import Loader from '../../compoents/Loader';
+import { useAuth } from '\../../firebase/auth';
 export default function Admin() {
-  return (
+  const { authUser, isLoading, setAuthUser } = useAuth();
+
+  return isLoading ? (
+    <Loader />
+  ) : (
     <AuthWrapper authRoles={['admin', 'supervisor']}>
       <ResponsiveAppBar
         navLinks={[

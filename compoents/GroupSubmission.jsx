@@ -7,8 +7,21 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useAuth } from '../firebase/auth';
-import { doc, setDoc, addDoc, collection } from 'firebase/firestore';
+// import { doc, setDoc, addDoc, collection } from 'firebase/firestore';
 import { db } from '../firebase/firebase';
+import { FormControl } from '@mui/material';
+import { useState } from 'react';
+import FormHelperText from '@mui/material/FormHelperText';
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  updateDoc,
+  addDoc,
+  doc,
+} from 'firebase/firestore';
+
 export default function GruopSubmission(props) {
   const [open, setOpen] = React.useState(false);
   const [submission, setSubmission] = React.useState('');
@@ -27,18 +40,44 @@ export default function GruopSubmission(props) {
 
   const { currentUser } = useAuth();
 
+  const [errorMessage, setErrorMessage] = useState('');
+
   const handleSubmission = async (event) => {
     event.preventDefault();
 
-    // Store the data in Firestore
-    const docRef = await addDoc(collection(db, 'submissions'), {
-      uidSuervisor: props.supervisorId,
-      uidSubmitter: currentUser.uid,
-      uidGroup: props.groupId,
-      link: submission,
-      title: props.title,
-    });
-    console.log(docRef);
+    if (submission.trim() !== '') {
+      const submissionsRef = collection(db, 'submissions');
+      const q = query(
+        submissionsRef,
+        where('title', '==', props.title),
+        where('uidGroup', '==', props.groupId)
+      );
+      const querySnapshot = await getDocs(q);
+
+      if (querySnapshot.empty) {
+        // No existing submission found, create a new one
+        const docRef = await addDoc(submissionsRef, {
+          uidSuervisor: props.supervisorId,
+          uidSubmitter: currentUser.uid,
+          uidGroup: props.groupId,
+          link: submission,
+          title: props.title,
+        });
+        console.log(docRef);
+      } else {
+        // Existing submission found, update it
+        const submissionDoc = querySnapshot.docs[0];
+        const docId = submissionDoc.id;
+
+        await updateDoc(doc(submissionsRef, docId), {
+          link: submission,
+        });
+      }
+
+      handleClose(); // Close the dialog after successful submission
+    } else {
+      setErrorMessage('Empty field cannot be submitted'); // Set the error message state
+    }
   };
 
   return (
@@ -47,7 +86,12 @@ export default function GruopSubmission(props) {
         Open submission box
       </Button>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>submit</DialogTitle>
+        <DialogTitle>
+          submit
+          <FormHelperText className="error_color">
+            {errorMessage}
+          </FormHelperText>
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
             To subscribe to this website, please enter your email address here.

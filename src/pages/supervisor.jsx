@@ -16,6 +16,7 @@ import { useAuth } from '../../firebase/auth';
 import Link from 'next/link';
 import AuthWrapper from '../../compoents/AuthWrapper';
 import ResponsiveAppBar from '../../compoents/Navbar';
+import Loader from '../../compoents/Loader';
 
 export default function Supervisor() {
   const { authUser, isLoading, setAuthUser, currentUser } = useAuth();
@@ -45,7 +46,9 @@ export default function Supervisor() {
   // console.log({ studentArray });
   console.log({ groups });
   console.log('check current user', authUser, currentUser);
-  return (
+  return isLoading ? (
+    <Loader />
+  ) : (
     <AuthWrapper authRoles={['supervisor']}>
       <ResponsiveAppBar
         navLinks={[{ label: 'Add Group', href: '/newGroup' }]}

@@ -18,6 +18,7 @@ import { addDoc } from 'firebase/firestore';
 import { collection, query, where, getDocs, doc } from 'firebase/firestore';
 import AuthWrapper from '../../compoents/AuthWrapper';
 import ResponsiveAppBar from '../../compoents/Navbar';
+import Loader from '../../compoents/Loader';
 
 function Copyright(props) {
   return (
@@ -98,7 +99,9 @@ export default function NewGroup() {
 
   console.log({ options });
 
-  return (
+  return isLoading ? (
+    <Loader />
+  ) : (
     <AuthWrapper authRoles={['supervisor']}>
       <ResponsiveAppBar
         navLinks={[{ label: 'Groups', href: '/supervisor' }]}

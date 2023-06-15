@@ -20,6 +20,7 @@ import {
 import { useAuth } from '../../firebase/auth';
 import AuthWrapper from '../../compoents/AuthWrapper';
 import ResponsiveAppBar from '../../compoents/Navbar';
+import Loader from '../../compoents/Loader';
 
 function Copyright(props) {
   return (
@@ -73,7 +74,9 @@ export default function RegisterSupervisor() {
     }
   };
 
-  return (
+  return isLoading ? (
+    <Loader />
+  ) : (
     <AuthWrapper authRoles={['admin']}>
       <ResponsiveAppBar
         navLinks={[{ label: 'home', href: '/admin' }]}

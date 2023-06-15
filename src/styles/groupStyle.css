@@ -1,3 +1,22 @@
+a {
+  text-decoration: none;
+  color: inherit;
+}
+.Loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #1976d2;
+}
+error_color {
+  color: red !important;
+}
+
 #container {
   width: 80%;
   display: grid;
@@ -17,9 +36,12 @@
 }
 /* pw heading section */
 #pw_div {
+  /* margin-top: -30px; */
   display: inline-block;
-  padding: 8px;
+  padding: 0px 5px;
+  line-height: 50%;
 }
+
 .dialog {
   padding: auto;
 }
@@ -63,6 +85,12 @@
   margin: 0px 20px;
   width: 340px;
   height: 70px;
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  box-shadow: rgba(214, 214, 214, 0.5) -1px -1px 7px 1px inset;
+  padding-left: 20px;
+  padding-right: -20px;
 }
 #btn1 {
   /* width: 300px;
@@ -209,5 +237,150 @@ p {
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+}
+.header {
+  background-image: url(../../public/Wallpaper-Black-And-White-Laptop-Computer-Keyboards-Tech43-1536x864.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.header .logo {
+  font-size: 3.8rem;
+  letter-spacing: 5px;
+  font-family: 'Bebas Neue', sans-serif;
+  color: white;
+  padding: 0;
+  margin: 0;
+}
+.header .logo:hover {
+  transition: 0.5s ease-in-out;
+  font-size: 4rem;
+  color: rgb(99, 120, 241);
+}
+.header .slogan {
+  width: 600px;
+  font-size: 1.5rem;
+  text-align: center;
+  justify-content: center;
+  transform: translateY(-50px);
+  color: rgb(231, 221, 221);
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.header .login {
+  margin: 0;
+  border: 2px rgb(44, 43, 43) solid;
+  border-radius: 25px;
+  background-color: white;
+  padding: 20px;
+  transform: translateY(-30px);
+  width: 200px;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 700;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 20px;
+}
+.header .login:hover {
+  transition: 0.5s ease-in-out;
+  background-color: rgb(99, 120, 241);
+  width: 220px;
+  border: 0;
+  border-radius: 30px;
+}
+.header .login .btn {
+  color: black;
+  text-decoration: none;
+}
+.header .login .btn:hover {
+  color: white;
+  transition: 0.5s;
+}
+main {
+  margin-top: 50px;
+}
+.users .about {
+  font-size: 3.2rem;
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.users .row {
+  display: flex;
+  flex-direction: row;
+  height: 50vh;
+  justify-content: space-between;
+  width: 80%;
+  margin-left: 10% !important;
+  margin-right: 10% !important;
+}
+.users .row .box {
+  display: flex;
+  border-radius: 20px;
+  background-color: rgb(99, 120, 241);
+  padding: 10px;
+  justify-content: space-evenly;
+  flex-direction: column;
+  width: 30%;
+  justify-content: center;
+  align-items: center;
+}
+.users .row .box .img {
+  width: 70px;
+  height: 70px;
+  margin: 0;
+  padding-top: 10px;
+  margin: 0;
+  justify-content: center;
+}
+.users .row .box .head {
+  font-size: 3rem;
+  margin: -5px 0 20px 0;
+  padding-top: 20px;
+  color: whitesmoke;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.users .row .box .info {
+  width: 95%;
+  text-align: center;
+  font-size: 1.4rem;
+  padding-top: 0;
+  margin-top: 0;
+  color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+@media screen and (max-width: 800px) {
+  html {
+    font-size: 50%;
+  }
+  .header {
+    background-size: cover;
+    overflow-x: hidden;
+  }
+  .header .slogan {
+    display: none;
+  }
+  .users .row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    padding: 0;
+    margin: 0;
+  }
+  .users .row .box {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    width: 70%;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 50px;
   }
 }

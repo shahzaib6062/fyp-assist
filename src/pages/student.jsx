@@ -9,7 +9,8 @@ import { useAuth } from '../../firebase/auth';
 import Link from 'next/link';
 import AuthWrapper from '../../compoents/AuthWrapper';
 import ResponsiveAppBar from '../../compoents/Navbar';
-// import '../styles/groupStyle.css';
+import Loader from '../../compoents/Loader';
+
 export default function Student() {
   const { authUser, isLoading, setAuthUser, currentUser } = useAuth();
   const [groups, setGroupArray] = useState([]);
@@ -36,7 +37,9 @@ export default function Student() {
   // console.log({ studentArray });
   console.log('groups', { groups });
   console.log('check current user', authUser, currentUser);
-  return (
+  return isLoading ? (
+    <Loader />
+  ) : (
     <AuthWrapper authRoles={['student', 'supervisor']}>
       <ResponsiveAppBar navLinks={[]}></ResponsiveAppBar>
       <Stack m={5} direction="row" alignItems="center" spacing={2}>

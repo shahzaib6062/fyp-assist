@@ -17,6 +17,7 @@ import {
   updateCurrentUser,
   updateProfile,
 } from 'firebase/auth';
+
 import {
   getDoc,
   doc,
@@ -31,6 +32,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import loginBanner from '../../asserts/imgs/loginBanner.jpg';
 import ResponsiveAppBar from '../../compoents/Navbar';
+import Loader from '../../compoents/Loader';
 function Copyright(props) {
   return (
     <Typography
@@ -97,7 +99,9 @@ export default function SignInSide() {
 
   // console.log('sign In rendered');
 
-  return (
+  return isLoading || (!isLoading && !!authUser) ? (
+    <Loader />
+  ) : (
     <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />

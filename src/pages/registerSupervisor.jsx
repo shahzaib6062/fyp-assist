@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Formik } from 'formik';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -14,13 +13,10 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { auth, db } from '../../firebase/firebase';
 import { useAuth } from '../../firebase/auth';
 import { collection, addDoc } from 'firebase/firestore';
-import {
-  createUserWithEmailAndPassword,
-  updateCurrentUser,
-  updateProfile,
-} from 'firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import AuthWrapper from '../../compoents/AuthWrapper';
 import ResponsiveAppBar from '../../compoents/Navbar';
+import Loader from '../../compoents/Loader';
 
 function Copyright(props) {
   return (
@@ -74,7 +70,9 @@ export default function RegisterSupervisor() {
     }
   };
 
-  return (
+  return isLoading ? (
+    <Loader />
+  ) : (
     <AuthWrapper authRoles={['admin']}>
       <ResponsiveAppBar
         navLinks={[{ label: 'home', href: '/admin' }]}

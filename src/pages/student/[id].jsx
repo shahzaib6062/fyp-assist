@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useEffect } from 'react';
 import { db } from '../../../firebase/firebase';
 import {
@@ -21,8 +21,11 @@ import Image from 'next/image';
 import GroupChat from '../../../compoents/GroupChat';
 import AddComment from '../../../compoents/AddComment';
 import GroupInfo from '../../../compoents/GroupInfo';
-import { Button } from '@mui/material';
+import Loader from '../../../compoents/Loader';
+import { useAuth } from '../../../firebase/auth';
+
 export default function FypGroup() {
+  const { authUser, isLoading, setAuthUser } = useAuth();
   const [group, setGroup] = useState({});
   const [chats, setChats] = useState([]);
   const { id } = useRouter().query;
@@ -63,7 +66,9 @@ export default function FypGroup() {
   }, [fetchDataChat, id]);
   console.log('chats', chats);
   console.log('fyp group', group);
-  return (
+  return isLoading ? (
+    <Loader />
+  ) : (
     <AuthWrapper authRoles={['admin', 'supervisor', 'student']}>
       <ResponsiveAppBar navLinks={[]}></ResponsiveAppBar>
       <div id="container">

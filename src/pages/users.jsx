@@ -17,6 +17,7 @@ import Container from '@mui/material/Container';
 import { Stack, Typography } from '@mui/material';
 import AuthWrapper from '../../compoents/AuthWrapper';
 import ResponsiveAppBar from '../../compoents/Navbar';
+import Loader from '../../compoents/Loader';
 
 export default function Users() {
   const { authUser, isLoading, setAuthUser, currentUser } = useAuth();
@@ -51,7 +52,9 @@ export default function Users() {
     };
     fetchDataStudent();
   }, [authUser]);
-  return (
+  return isLoading ? (
+    <Loader />
+  ) : (
     <AuthWrapper authRoles={['admin']}>
       <ResponsiveAppBar
         navLinks={[

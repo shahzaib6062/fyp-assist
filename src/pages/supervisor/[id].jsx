@@ -1,8 +1,6 @@
 import { useRouter } from 'next/router';
 import React, { useCallback, useState } from 'react';
 import { useEffect } from 'react';
-import Chip from '@mui/material/Chip';
-import DoneIcon from '@mui/icons-material/Done';
 import { db } from '../../../firebase/firebase';
 import {
   getDoc,
@@ -25,7 +23,10 @@ import GroupChat from '../../../compoents/GroupChat';
 import AddComment from '../../../compoents/AddComment';
 import GroupInfo from '../../../compoents/GroupInfo';
 import { Button } from '@mui/material';
+import Loader from '../../../compoents/Loader';
+import { useAuth } from '../../../firebase/auth';
 export default function FypGroupSup() {
+  const { authUser, isLoading, setAuthUser } = useAuth();
   const [group, setGroup] = useState({});
   const [chats, setChats] = useState([]);
   const [submissions, setSubmissions] = useState([]);
@@ -89,7 +90,9 @@ export default function FypGroupSup() {
   const codeReps = submissions.find((s) => s.title === 'finalCode');
 
   console.log({ initialRepS, finalReps, codeReps });
-  return (
+  return isLoading ? (
+    <Loader />
+  ) : (
     <AuthWrapper authRoles={['admin', 'supervisor']}>
       <ResponsiveAppBar navLinks={[]}></ResponsiveAppBar>
       <div id="container">
