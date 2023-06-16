@@ -21,6 +21,7 @@ import { useAuth } from '../../firebase/auth';
 import AuthWrapper from '../../compoents/AuthWrapper';
 import ResponsiveAppBar from '../../compoents/Navbar';
 import Loader from '../../compoents/Loader';
+import { useRouter } from 'next/router';
 
 function Copyright(props) {
   return (
@@ -44,7 +45,7 @@ const theme = createTheme();
 
 export default function RegisterSupervisor() {
   const { authUser, isLoading, setAuthUser } = useAuth();
-
+  const router = useRouter();
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -59,8 +60,6 @@ export default function RegisterSupervisor() {
       });
 
       const { user } = authData;
-
-      console.log(authData);
       // Store the data in Firestore
       const docRef = await addDoc(collection(db, 'users'), {
         uid: user.uid,
@@ -69,6 +68,7 @@ export default function RegisterSupervisor() {
         role: 'student',
         agNumber: data.get('agNumber'),
       });
+      router.push('/admin');
     } catch (error) {
       console.error(error);
     }

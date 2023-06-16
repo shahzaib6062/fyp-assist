@@ -163,11 +163,11 @@ export default function FypGroupSup() {
         </div>
 
         {/* <!--  button section --> */}
-        <div>
+        {/* <div>
           <div id="outer_button_div">
             <GroupInfo groupId={id} />
           </div>
-        </div>
+        </div> */}
       </div>
       <div className="flex-component">
         <div>

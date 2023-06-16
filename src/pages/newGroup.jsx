@@ -19,6 +19,7 @@ import { collection, query, where, getDocs, doc } from 'firebase/firestore';
 import AuthWrapper from '../../compoents/AuthWrapper';
 import ResponsiveAppBar from '../../compoents/Navbar';
 import Loader from '../../compoents/Loader';
+import { useRouter } from 'next/router';
 
 function Copyright(props) {
   return (
@@ -41,7 +42,7 @@ function Copyright(props) {
 const theme = createTheme();
 export default function NewGroup() {
   const [studentArray, setStudentArray] = useState([]);
-
+  const router = useRouter();
   console.log({ studentArray });
   useEffect(() => {
     const fetchData = async () => {
@@ -58,8 +59,6 @@ export default function NewGroup() {
     };
     fetchData();
   }, []);
-
-  console.log(studentArray);
   const [value1, setValue1] = useState('option1');
   const [inputValue1, setInputValue1] = useState('');
   const [value2, setValue2] = useState('option1');
@@ -85,19 +84,10 @@ export default function NewGroup() {
       ],
       supervisor: authUser.uid,
     });
-    console.log(docRef);
-    console.log({
-      title: data.get('title'),
-      description: data.get('description'),
-      student1: value1,
-      student2: value2,
-      user: authUser.uid,
-    });
+    router.push('/supervisor');
   };
 
   const options = studentArray.map((student) => student.data().agNumber);
-
-  console.log({ options });
 
   return isLoading ? (
     <Loader />

@@ -17,6 +17,7 @@ import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import AuthWrapper from '../../compoents/AuthWrapper';
 import ResponsiveAppBar from '../../compoents/Navbar';
 import Loader from '../../compoents/Loader';
+import { Router } from 'next/router';
 
 function Copyright(props) {
   return (
@@ -40,7 +41,7 @@ const theme = createTheme();
 
 export default function RegisterSupervisor() {
   const { authUser, isLoading, setAuthUser } = useAuth();
-
+  const router = Router();
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -64,7 +65,7 @@ export default function RegisterSupervisor() {
         displayName: data.get('name'),
         role: 'supervisor',
       });
-      console.log(user);
+      router.push('/admin');
     } catch (error) {
       console.log('there is some sort of error ', error);
     }
